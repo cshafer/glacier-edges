@@ -12,15 +12,18 @@ import matplotlib.pyplot as plt
 
 start_time = time.time()
 
+GLACIER_ID = '054'
+YEAR = '2018'
+
 init_path = r"/home/courtney/Desktop/practice/"
 os.chdir(init_path)
 
 # glaciers_path = r"/home/courtney/Desktop/practice/glaciers.txt"
-glaciers_path = r"/home/courtney/Desktop/practice/av_glaciers.txt"
+glaciers_path = r'/home/courtney/Desktop/practice/glacier'+GLACIER_ID+'.txt'
 # mosaics_path = r"/home/courtney/Desktop/practice/mosaics50m/"
 mosaics_path = r"/Volumes/insar9/ian/Sentinel1/quadrants/mosaics50m"
 # chips_path = r"/home/courtney/Desktop/practice/chips/"
-chips_path = r"/home/courtney/Desktop/practice/035_2018_chips"
+chips_path = r'/home/courtney/Desktop/practice/'+GLACIER_ID+'_'+YEAR+'_'+'chips'
 
 
 def Get_vrt(date):
@@ -46,7 +49,7 @@ def Create_chips(vrt, date, glacier_info):
         subprocess.call(['gdalwarp', '-t_srs', 'EPSG:3413', '-te', glacier_coords[1], glacier_coords[2], glacier_coords[3], glacier_coords[4], '-tr', '50', '50', vrt, glacier_coords[0]+'.'+date+'.tif'])
 
 directories = sorted(os.listdir(mosaics_path))
-date_regex = re.compile(r"2018-\d{2}-\d{2}")  # For example, 2018-04-12
+date_regex = re.compile(r''+YEAR+'-\d{2}-\d{2}')  # For example, 2018-04-12
 
 for date in directories:
     if date_regex.search(date) is not None:
