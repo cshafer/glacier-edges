@@ -31,7 +31,7 @@ uim0713 = uim07-uim13
 uim1319 = uim13-uim19
 uim1925 = uim19-uim25
 
-'''bins = [-128 to 128]'''
+'''bins = [-128 to 127]'''
 
 im0107 = np.int8(uim0107)
 im0713 = np.int8(uim0713)

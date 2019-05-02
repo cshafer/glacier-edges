@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 start_time = time.time()
 
-GLACIER_ID = '054'
+GLACIER_ID = '003'
 YEAR = '2018'
 
 init_path = r"/home/courtney/Desktop/practice/"
