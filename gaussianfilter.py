@@ -11,8 +11,8 @@ import scipy.ndimage
 import matplotlib.pyplot as plt
 
 images = []
-START = 0
-STOP = 0
+START = 44
+STOP = 45
 GLACIER_ID = '003'
 YEAR = '2018'
 
@@ -30,9 +30,10 @@ gfiltered1 = np.zeros((width, height), dtype = np.int16)
 gfiltered2 = np.zeros((width, height), dtype = np.int16)
 lfiltered3 = np.zeros((width, height), dtype = np.int16)
 lfiltered4 = np.zeros((width, height), dtype = np.int16)
+sfiltered5 = np.zeros((width, height), dtype = np.int16)
 
 #Filter each image with a gaussian filter and then take the difference
-for i in range(44, 45, 1):
+for i in range(START, STOP, 1):
     scipy.ndimage.gaussian_filter(images[i],5, order=0, output=gfiltered0, mode='constant', cval=0.0, truncate = 3/10)
     scipy.ndimage.gaussian_filter(images[i+1],5, order=0, output=gfiltered1, mode='constant', cval=0.0, truncate = 3/10)
     plt.figure('Difference in Gaussian filtered images '+chips[i]+' and '+chips[i+1])
@@ -40,7 +41,7 @@ for i in range(44, 45, 1):
     plt.show()
 
 #Take the difference between each image and then filter the resulting image
-for i in range(44, 45, 1):
+for i in range(START, STOP, 1):
     plt.figure("Gaussian filter of difference between " + chips[i] + ' and ' + chips[i+1])
     scipy.ndimage.gaussian_filter(images[i]-images[i+1],5,order=0, output=gfiltered2, mode='constant', cval=0.0, truncate = 3/10)
     plt.imshow(gfiltered2, cmap='seismic', vmin=-128, vmax=128, interpolation='none')
@@ -56,4 +57,10 @@ plt.show()
 plt.figure('Laplace filter')
 scipy.ndimage.laplace(gfiltered2, output=lfiltered3, mode='constant', cval=0.0)
 plt.imshow(lfiltered3, cmap='gray', interpolation='none')
+plt.show()
+
+#Sobel filter
+plt.figure('Sobel filter')
+scipy.ndimage.sobel(gfiltered2, axis=-1, output=sfiltered5, mode='constant', cval=0.0)
+plt.imshow(sfiltered5, cmap='gray', interpolation='none')
 plt.show()
